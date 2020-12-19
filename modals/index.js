@@ -1,0 +1,9 @@
+const mongoose = require("mongoose");
+const modals = require("./modals");
+const dbConfig = require("../db");
+mongoose.Promise = global.Promise;
+const db = {};
+db.mongoose = mongoose;
+db.url = dbConfig.url;
+db.players_app_lvl = modals.users(mongoose);
+module.exports = db;
