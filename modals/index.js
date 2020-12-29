@@ -5,5 +5,5 @@ mongoose.Promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
-db.players_app_lvl = modals.users(mongoose);
+db.userModals = modals.users(mongoose);
 module.exports = db;

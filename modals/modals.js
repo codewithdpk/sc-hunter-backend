@@ -11,6 +11,8 @@ modals.users = (mongoose) => {
     password: String,
     googleid: String,
     facebookid: String,
+    image_url: String,
+    mode: String,
     created: { type: Number, default: Date.now() },
     updated: Number,
     status: String,

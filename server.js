@@ -16,7 +16,7 @@ const dbMongo = require("./modals");
 
 //Configuration of database
 dbMongo.mongoose
-  .connect(dbMongo.url, {
+  .connect(process.env.APP_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

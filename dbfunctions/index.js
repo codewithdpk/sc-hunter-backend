@@ -1,6 +1,6 @@
-const modals = require("../modals/modals");
+const modals = require("../modals");
 
-const usersModal = modals.users;
+const usersModal = modals.userModals;
 
 const perform = {};
 
@@ -13,6 +13,8 @@ perform.createANewUser = (user) => {
       password: user.password,
       googleid: user.googleid,
       facebookid: user.facebookid,
+      mode: user.mode,
+      image_url: user.image_url,
     });
 
     newUser

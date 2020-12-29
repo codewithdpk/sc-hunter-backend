@@ -4,7 +4,8 @@ const router = express.Router();
 
 const db = require("../dbfunctions");
 
-router.post("/regitration", async (req, res) => {
+router.post("/registration", async (req, res) => {
+  console.log(req.body);
   if (req.body === undefined || req.body.email === undefined) {
     res.json({ status: "warning", message: "All Parameters required." });
   } else {
