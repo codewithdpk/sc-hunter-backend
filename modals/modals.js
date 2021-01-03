@@ -28,4 +28,35 @@ modals.users = (mongoose) => {
   return users;
 };
 
+modals.hunts = (mongoose) => {
+  var schema = mongoose.Schema({
+    hunt_id: {
+      type: String,
+      default: "_" + Math.random().toString(36).substr(2, 9),
+    },
+    createdBy: String,
+    name: String,
+    startingArea: String,
+    completeStartingAddress: String,
+    startingLong: Number,
+    startingLat: Number,
+    endingArea: String,
+    endingStartingAddress: String,
+    endingLong: Number,
+    endingLat: Number,
+    created: { type: Number, default: Date.now() },
+    updated: Number,
+    status: String,
+  });
+
+  schema.method("toJSON", function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
+
+  var users = mongoose.model("hunts", schema, "hunts");
+  return users;
+};
+
 module.exports = modals;

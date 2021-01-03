@@ -19,4 +19,35 @@ router.post("/registration", async (req, res) => {
   }
 });
 
+router.post("/login", async (req, res) => {
+  if (req.body === undefined) {
+    res.json({ status: "warning", message: "All Parameters required." });
+  } else {
+    switch (req.body.mode) {
+      case "email":
+        const userInfo = db.loginWithEmail(req.body);
+        if (userInfo !== {} || userInfo !== undefined) {
+          res.json({
+            status: "OK",
+            message: "Logged in successfully.",
+            userInfo: userInfo,
+          });
+        } else {
+          res.json({
+            status: "user_not_found",
+            message: "User not found. Please register.",
+          });
+        }
+
+        break;
+
+      case "google":
+        break;
+
+      case "facebook":
+        break;
+    }
+  }
+});
+
 module.exports = router;

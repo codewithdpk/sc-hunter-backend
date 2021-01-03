@@ -8,6 +8,8 @@ const dotenv = require("dotenv");
 
 const authRoute = require("./routes/AuthRoute");
 
+const huntRoute = require("./routes/huntRoute");
+
 dotenv.config();
 
 var bodyParser = require("body-parser");
@@ -33,6 +35,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/auth", authRoute);
+
+app.use("/hunts", huntRoute);
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000.");
