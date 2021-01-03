@@ -20,6 +20,7 @@ router.post("/registration", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log("Body:", req.body);
   if (req.body === undefined) {
     res.json({ status: "warning", message: "All Parameters required." });
   } else {
