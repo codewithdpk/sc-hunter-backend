@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "npx nodemon server.js -w -L server",
+    "dev": "npx nodemon server/server.js -w server",
     "start": "node server.js"
   },
   "repository": {
@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/codewithdpk/sc-hunter-backend#readme",
   "dependencies": {
-  
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
