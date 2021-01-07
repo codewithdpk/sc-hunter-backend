@@ -4,6 +4,8 @@ const usersModal = modals.userModals;
 
 const huntModal = modals.huntModal;
 
+const postsModal = modals.postsModal;
+
 const perform = {};
 
 //create a new user
@@ -30,6 +32,7 @@ perform.createANewUser = (user) => {
   });
 };
 
+// Login
 perform.loginWithEmail = (obj) => {
   return new Promise((resolve, reject) => {
     usersModal
@@ -63,10 +66,105 @@ perform.createHunt = (obj) => {
       endingStartingAddress: "none",
       endingLong: null,
       endingLat: null,
-      created: { type: Number, default: Date.now() },
-      updated: Number,
+      updated: Date.now(),
       status: "Active",
     });
+
+    newHunt
+      .save()
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Get all hunts of specific user
+
+perform.getAllHunts = (id) => {
+  return new Promise((resolve, reject) => {
+    huntModal
+      .find({ createdBy: { $eq: id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+perform.getHuntsByKey = (key) => {
+  console.log(key);
+  return new Promise((resolve, reject) => {
+    huntModal
+      .find({ $text: { $search: key } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Get a hunt by id
+
+perform.getHuntById = (id) => {
+  return new Promise((resolve, reject) => {
+    huntModal
+      .findOne({ hunt_id: { $eq: id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Create a post
+
+perform.createAPost = (details) => {
+  return new Promise((resolve, reject) => {
+    const newPost = new postsModal({
+      post_name: details.post_name,
+      address: details.address,
+      long: details.long,
+      lat: details.lat,
+      hunt_id: details.hunt_id,
+      hunt_name: details.hunt_name,
+      createdBy: details.createdBy,
+      information: details.information,
+      defaultQuestion: details.defaultQuestion,
+      updated: Date.now(),
+      status: "A",
+    });
+
+    newPost
+      .save()
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Get all hunt's posts
+perform.getHuntsPost = (hunt_id) => {
+  return new Promise((resolve, reject) => {
+    postsModal
+      .find({ hunt_id: { $eq: hunt_id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
   });
 };
 

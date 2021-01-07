@@ -7,5 +7,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.userModals = modals.users(mongoose);
 db.huntModal = modals.hunts(mongoose);
+db.postsModal = modals.posts(mongoose);
 
 module.exports = db;

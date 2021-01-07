@@ -21,12 +21,12 @@ router.post("/registration", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   console.log("Body:", req.body);
-  if (req.body === undefined) {
+  if (req.body === undefined || req.body === {}) {
     res.json({ status: "warning", message: "All Parameters required." });
   } else {
     switch (req.body.mode) {
       case "email":
-        const userInfo = db.loginWithEmail(req.body);
+        const userInfo = await db.loginWithEmail(req.body);
         if (userInfo !== {} || userInfo !== undefined) {
           res.json({
             status: "OK",
