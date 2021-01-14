@@ -168,4 +168,18 @@ perform.getHuntsPost = (hunt_id) => {
   });
 };
 
+// Get a single user details
+perform.getUserDetails = (id) => {
+  return new Promise((resolve, reject) => {
+    usersModal
+      .findOne({ user_id: { $eq: id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
 module.exports = perform;

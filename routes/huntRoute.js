@@ -40,14 +40,23 @@ router.post("/get-all", async (req, res) => {
 });
 
 router.post("/filters", async (req, res) => {
+  let hunts = [];
   if (req.body.key === undefined) {
     res.json({ status: "failed", message: "Parameter missing" });
   } else {
     const getHunts = await db.getHuntsByKey(req.body.key);
+
+    await Promise.all(
+      getHunts.map(async (hunt) => {
+        var posts = await db.getHuntsPost(hunt.hunt_id);
+        hunts.push({ hunt: hunt, posts: posts });
+      })
+    );
+
     res.json({
       status: "OK",
       message: "Hunts fetched succuessfully.",
-      hunts: getHunts,
+      hunts: hunts,
     });
   }
 });
@@ -59,9 +68,11 @@ router.post("/get", async (req, res) => {
   } else {
     const huntDetails = await db.getHuntById(req.body.id);
     const posts = await db.getHuntsPost(huntDetails.hunt_id);
+    const ownerDetails = await db.getUserDetails(huntDetails.createdBy);
     res.json({
       status: "OK",
       message: "Hunt fetched successfully",
+      owner: ownerDetails,
       hunt: huntDetails,
       posts: posts,
     });
