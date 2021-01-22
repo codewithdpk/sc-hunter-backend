@@ -126,7 +126,6 @@ perform.getHuntById = (id) => {
 };
 
 // Create a post
-
 perform.createAPost = (details) => {
   return new Promise((resolve, reject) => {
     const newPost = new postsModal({
@@ -134,6 +133,7 @@ perform.createAPost = (details) => {
       address: details.address,
       long: details.long,
       lat: details.lat,
+      post_image: details.post_image,
       hunt_id: details.hunt_id,
       hunt_name: details.hunt_name,
       createdBy: details.createdBy,

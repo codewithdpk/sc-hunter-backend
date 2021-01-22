@@ -4,6 +4,28 @@ const router = express.Router();
 
 const db = require("../dbfunctions");
 
+const { Storage } = require("@google-cloud/storage");
+const multer = require("multer");
+
+// Create new storage instance with Firebase project credentials
+const storage = new Storage({
+  projectId: "pokerswapping",
+  keyFilename: "../scavenger-hunter.json",
+});
+
+// Create a bucket associated to Firebase storage bucket
+const bucket = storage.bucket(
+  "gs://scavenger-hunter-1608147586701.appspot.com"
+);
+
+// Initiating a memory storage engine to store files as Buffer objects
+const uploader = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // limiting files size to 5 MB
+  },
+});
+
 router.post("/create", async (req, res) => {
   console.log("Body:", req.body);
   if (req.body === {}) {
@@ -23,15 +45,22 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/get-all", async (req, res) => {
+  let hunts = [];
   if (req.body.id === undefined) {
     res.json({ status: "failed", message: "Parameter is missing." });
   } else {
     const allHuntsOfUsers = await db.getAllHunts(req.body.id);
     if (allHuntsOfUsers !== null || allHuntsOfUsers.length !== 0) {
+      await Promise.all(
+        allHuntsOfUsers.map(async (hunt) => {
+          var posts = await db.getHuntsPost(hunt.hunt_id);
+          hunts.push({ hunt: hunt, posts: posts });
+        })
+      );
       res.json({
         status: "OK",
         message: "Hunts fetched successfully",
-        hunts: allHuntsOfUsers,
+        hunts: hunts,
       });
     } else {
       res.json({ status: "failed", message: "Failed to fetch hunts." });

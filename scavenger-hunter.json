@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "scavenger-hunter-1608147586701",
+  "private_key_id": "010d8a1c4566de7c4f6510829601d592611f6e9a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/lxRcRmWWIE/M\nBvWkAyCWLc8GgjMmVG7abDNQIMn8+JeL5G4AengrigS5UWJcgOvUImm7jCLh8Pop\nFHd/BkXewCIhTCKfShDD6RWpzHX3bZ1ZKziq0H1sRNjbYv6UAi+2kszvx7hjam09\nalw7Zp6re6gsOMvppI4CDac7C3TunLg2pC0wgbrC9YHp9oc0FamDSEPyEca8JMkz\nGP456SfmJzf5IiYF8nc7H9QZeZ5E3bAB1QfB5ACr7nc67xmg4BrEiUUbs4LBrfWg\no/WnFiZUW1/JJFdixRGw9QwfIjptcNr229mWMCmobqseY2dyjt1L9MyuPhyFAGx6\n9dM+xIc7AgMBAAECggEAROy8JWop97VOH89NJaD+Yyi9ttC2SA7OBoQwfZ4eLITe\nODSIomFsw/UWN/kgUrkKnjl3IkKK9g+0X3z+dFM0ZatnW+VA+18w4toCsiBdPBNS\nLRcQftsclAu8nEhj36ldsufjFEwceJ98B0ExRylm4bhNywLv0PEjKXfx9prriT92\nr9CU5AAuBmBTGE9L1CBaHjipgUHdmr1e8l1akJAq/A06hwjClAVXBMuTQmKfNWFw\nhmSODzr6Bq5vHSDhIROkdUvjAsu3yWZbT4HLGlgm3xTHkhhY2niezaDYsLCyShlh\n04CZ12K2PWLG/SSWZDjBPfnjqcx4XWyF0VHTSLC5aQKBgQDph4vhVGjHLyB5V9S5\n2ud/Q4+8JhCBAjPJasrxs9QZgP4kKABgbmRpBxtyhvkcNQFa4Sge/7N7oRQe1G9s\nsx6cGBtL4ig4SSuFNbwAZrjXO56bigZKdQeseq8hpKsGx2ysM/Jp0eawpTCCDr/i\nLoF3W2ToUcsYmQmx03snrePBlwKBgQDSBnSuApak1DSntdFzflWnL6c/V5H31cVU\n3nDvwv+ugWOYkIBygjhBPAjlwiuJligfZ2SZwf5ipdivrptndZ/98Pj/HQBSyWZ+\nYezkTO9x6nQN1/0WB5k5aHDpCg8bH1Y3SUO9OmfV+md4nmpsVnzZ12F/4lwrEOz/\naLZ1dzAT/QKBgBygszMiR93zFwYJEFjgTvS48YvdFrTZ8kNExjAvHVcrCvyfsrwf\njEubxW+awDsG/G2JoIN8USJcsry8yhQHOT9lbSM2TDvqLF2eIrfh39LyyhTDLNY/\n1nr8Zy+2ogiotde+Xn8+bgtFlNa8vCUcEl7xY0Nfk4gmapvUEwrgNEVtAoGARbYg\n2nU/fVx2Uch2yif/1CtsDwlJCQMqqZ3fzKVj6o9F+KjWCawRcg20QlbtzpBJpwrR\niHusrR+xSbbiHDgdr9NhQoRkzBXPcFmeoLSssZoJhWLQvZQuFrEE8UUGeJExM86c\nrl2Jg6vG1nF2j5kxfbkQwrrmruDCWZBvJ5Q1IB0CgYBaTnQ4e7A2V++rk0+hQi7L\nQkxJ/5dmeaEOWE5MXlhGUZrjiTf3dcqS1qqCdpKq+y8mKe9F/7u7F4gFPmh8iiEQ\nhIJAt/FDogj9SaOAZy5HfXgJyQ8lmk1dXy0hQb1o06z3Ca07ZZQ6AwQSytkhYqDI\nLIDGZI625kl7Shop39POxg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-kmtn9@scavenger-hunter-1608147586701.iam.gserviceaccount.com",
+  "client_id": "108056372027251044511",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-kmtn9%40scavenger-hunter-1608147586701.iam.gserviceaccount.com"
+}

@@ -71,6 +71,7 @@ modals.posts = (mongoose) => {
     address: String,
     long: Number,
     lat: Number,
+    post_image: String,
     hunt_id: String,
     hunt_name: String,
     createdBy: String,
