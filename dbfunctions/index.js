@@ -1,3 +1,4 @@
+const { uuid } = require("uuidv4");
 const modals = require("../modals");
 
 const usersModal = modals.userModals;
@@ -12,6 +13,7 @@ const perform = {};
 perform.createANewUser = (user) => {
   return new Promise((resolve, reject) => {
     const newUser = new usersModal({
+      user_id: uuid(),
       name: user.name,
       email: user.email,
       password: user.password,
@@ -56,6 +58,7 @@ perform.loginWithEmail = (obj) => {
 perform.createHunt = (obj) => {
   return new Promise((resolve, reject) => {
     const newHunt = new huntModal({
+      hunt_id: uuid(),
       createdBy: obj.createdBy,
       name: obj.huntName,
       startingArea: obj.startingAreaName,
@@ -87,6 +90,21 @@ perform.getAllHunts = (id) => {
   return new Promise((resolve, reject) => {
     huntModal
       .find({ createdBy: { $eq: id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Get all hunts of specific user
+
+perform.getAllTopHunts = () => {
+  return new Promise((resolve, reject) => {
+    huntModal
+      .find()
       .then((data) => {
         return resolve(data);
       })
@@ -129,6 +147,7 @@ perform.getHuntById = (id) => {
 perform.createAPost = (details) => {
   return new Promise((resolve, reject) => {
     const newPost = new postsModal({
+      post_id: uuid(),
       post_name: details.post_name,
       address: details.address,
       long: details.long,
@@ -139,6 +158,8 @@ perform.createAPost = (details) => {
       createdBy: details.createdBy,
       information: details.information,
       defaultQuestion: details.defaultQuestion,
+      questionId: uuid(),
+      answerType: details.answerType,
       updated: Date.now(),
       status: "A",
     });
@@ -173,6 +194,20 @@ perform.getUserDetails = (id) => {
   return new Promise((resolve, reject) => {
     usersModal
       .findOne({ user_id: { $eq: id } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Check if user' email exist or not
+perform.checkUserExistOnNot = (email) => {
+  return new Promise((resolve, reject) => {
+    usersModal
+      .findOne({ email: { $eq: email } })
       .then((data) => {
         return resolve(data);
       })

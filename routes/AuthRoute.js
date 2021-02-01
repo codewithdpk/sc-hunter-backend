@@ -51,4 +51,33 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/auth_google", async (req, res) => {
+  console.log(req.body);
+  if (req.body === undefined) {
+    res.json({ status: "failed", message: "Paramters missing" });
+  } else {
+    const result = await db.checkUserExistOnNot(req.body.email);
+
+    if (result !== null) {
+      // Just login
+
+      res.json({
+        status: "OK",
+        message: "Logged in successfully",
+        userDetails: result,
+      });
+    } else {
+      // Register
+
+      const registredUser = await db.createANewUser(req.body);
+
+      res.json({
+        status: "OK",
+        message: "User has been registered successfully.",
+        userDetails: registredUser,
+      });
+    }
+  }
+});
+
 module.exports = router;

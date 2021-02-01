@@ -9,7 +9,7 @@ const multer = require("multer");
 
 // Create new storage instance with Firebase project credentials
 const storage = new Storage({
-  projectId: "pokerswapping",
+  projectId: "scavenger-hunter-1608147586701",
   keyFilename: "../scavenger-hunter.json",
 });
 
@@ -45,6 +45,30 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/get-all", async (req, res) => {
+  let hunts = [];
+  if (req.body.id === undefined) {
+    res.json({ status: "failed", message: "Parameter is missing." });
+  } else {
+    const allHuntsOfUsers = await db.getAllTopHunts();
+    if (allHuntsOfUsers !== null || allHuntsOfUsers.length !== 0) {
+      await Promise.all(
+        allHuntsOfUsers.map(async (hunt) => {
+          var posts = await db.getHuntsPost(hunt.hunt_id);
+          hunts.push({ hunt: hunt, posts: posts });
+        })
+      );
+      res.json({
+        status: "OK",
+        message: "Hunts fetched successfully",
+        hunts: hunts,
+      });
+    } else {
+      res.json({ status: "failed", message: "Failed to fetch hunts." });
+    }
+  }
+});
+
+router.post("/get-users-all", async (req, res) => {
   let hunts = [];
   if (req.body.id === undefined) {
     res.json({ status: "failed", message: "Parameter is missing." });

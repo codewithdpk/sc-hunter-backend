@@ -2,10 +2,7 @@ const modals = {};
 
 modals.users = (mongoose) => {
   var schema = mongoose.Schema({
-    user_id: {
-      type: String,
-      default: "_" + Math.random().toString(36).substr(2, 9),
-    },
+    user_id: String,
     name: String,
     email: String,
     password: String,
@@ -30,10 +27,7 @@ modals.users = (mongoose) => {
 
 modals.hunts = (mongoose) => {
   var schema = mongoose.Schema({
-    hunt_id: {
-      type: String,
-      default: "_" + Math.random().toString(36).substr(2, 9),
-    },
+    hunt_id: String,
     createdBy: String,
     name: String,
     startingArea: String,
@@ -63,10 +57,7 @@ modals.hunts = (mongoose) => {
 
 modals.posts = (mongoose) => {
   var schema = mongoose.Schema({
-    post_id: {
-      type: String,
-      default: "_" + Math.random().toString(36).substr(2, 9),
-    },
+    post_id: String,
     post_name: String,
     address: String,
     long: Number,
@@ -77,10 +68,8 @@ modals.posts = (mongoose) => {
     createdBy: String,
     information: String,
     defaultQuestion: String,
-    questionId: {
-      type: String,
-      default: "_" + Math.random().toString(36).substr(2, 9),
-    },
+    questionId: String,
+    answerType: String,
     created: { type: String, default: Date.now() },
     updated: Number,
     status: String,
