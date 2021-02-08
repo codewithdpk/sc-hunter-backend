@@ -104,7 +104,7 @@ perform.getAllHunts = (id) => {
 perform.getAllTopHunts = () => {
   return new Promise((resolve, reject) => {
     huntModal
-      .find()
+      .find({ endingStartingAddress: { $ne: "none" } })
       .then((data) => {
         return resolve(data);
       })
@@ -118,7 +118,12 @@ perform.getHuntsByKey = (key) => {
   console.log(key);
   return new Promise((resolve, reject) => {
     huntModal
-      .find({ $text: { $search: key } })
+      .find({
+        $and: [
+          { $text: { $search: key } },
+          { endingStartingAddress: { $ne: "none" } },
+        ],
+      })
       .then((data) => {
         return resolve(data);
       })
@@ -208,6 +213,45 @@ perform.checkUserExistOnNot = (email) => {
   return new Promise((resolve, reject) => {
     usersModal
       .findOne({ email: { $eq: email } })
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+//
+perform.getLastPost = (hunt_id) => {
+  return new Promise((resolve, reject) => {
+    postsModal
+      .find({ hunt_id: { $eq: hunt_id } })
+      // .sort({ post_id: 1 })
+      .then((data) => {
+        return resolve(data[data.length - 1]);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+// Ending point
+
+perform.endingPost = (hunt_id, area, address, long, lat) => {
+  console.log(hunt_id, area, address, long, lat);
+  return new Promise((resolve, reject) => {
+    huntModal
+      .updateOne(
+        { hunt_id: { $eq: hunt_id } },
+        {
+          endingArea: area,
+          endingStartingAddress: address,
+          endingLong: long,
+          endingLat: lat,
+        }
+      )
       .then((data) => {
         return resolve(data);
       })

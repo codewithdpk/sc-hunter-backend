@@ -142,4 +142,36 @@ router.post("/add_post", async (req, res) => {
   }
 });
 
+router.post("/endingpoint", async (req, res) => {
+  console.log(req.body);
+  if (req.body.hunt_id === undefined) {
+    res.json({ status: "failed", message: "Hunt id is missing" });
+  } else {
+    // Getting last post
+    const lastPost = await db.getLastPost(req.body.hunt_id);
+
+    //
+    const result = await db.endingPost(
+      req.body.hunt_id,
+      lastPost.post_name,
+      lastPost.address,
+      lastPost.long,
+      lastPost.lat
+    );
+
+    if (result !== undefined) {
+      res.json({
+        status: "OK",
+        messsage: "Ending point updated successfully.",
+      });
+    } else {
+      res.json({
+        status: "failed",
+        message:
+          "Something went wrong. Not able to update ending point. Please try after some time.",
+      });
+    }
+  }
+});
+
 module.exports = router;
