@@ -7,6 +7,8 @@ const huntModal = modals.huntModal;
 
 const postsModal = modals.postsModal;
 
+const hunt_recordsModal = modals.hunt_recordsModal;
+
 const perform = {};
 
 //create a new user
@@ -252,6 +254,56 @@ perform.endingPost = (hunt_id, area, address, long, lat) => {
           endingLat: lat,
         }
       )
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+perform.checkHuntRecords = (details) => {
+  return new Promise((resolve, reject) => {
+    hunt_recordsModal
+      .findOne({
+        $and: [
+          { hunt_id: { $eq: details.hunt_id } },
+          { player_id: { $eq: details.user_id } },
+        ],
+      })
+      .then((data) => {
+        if (data !== null) {
+          return resolve(data);
+        } else {
+          return resolve(null);
+        }
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+perform.createHuntsRecord = (details, huntDetails, userDetails) => {
+  return new Promise((resolve, reject) => {
+    const record = new hunt_recordsModal({
+      record_id: uuid(),
+      hunt_id: details.hunt_id,
+      hunt_name: huntDetails.name,
+      player_id: details.user_id,
+      player_name: userDetails.name,
+      completedPosts: [],
+      startedOn: Math.floor(Date.now() / 1000),
+      completedOn: null,
+      distance: 0,
+      status: "started", //started, completed
+      createdOn: Math.floor(Date.now() / 1000),
+      updatedOn: Math.floor(Date.now() / 1000),
+    });
+
+    record
+      .save()
       .then((data) => {
         return resolve(data);
       })

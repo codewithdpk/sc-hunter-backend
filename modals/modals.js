@@ -86,4 +86,31 @@ modals.posts = (mongoose) => {
   return users;
 };
 
+modals.hunt_records = (mongoose) => {
+  var schema = mongoose.Schema({
+    record_id: String,
+    hunt_id: String,
+    hunt_name: String,
+    player_id: String,
+    player_name: String,
+    completedPosts: Array,
+    startedOn: Number,
+    completedOn: Number,
+    distance: Number,
+    status: String, //started, completed
+    createdOn: Number,
+    updatedOn: Number,
+  });
+  // schema.index({ name: "text", completeStartingAddress: "text" });
+
+  schema.method("toJSON", function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
+
+  var hunt_records = mongoose.model("hunt_records", schema, "hunt_records");
+  return hunt_records;
+};
+
 module.exports = modals;
