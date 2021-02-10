@@ -10,6 +10,7 @@ router.post("/check", async (req, res) => {
   } else {
     // Check in the records
     const result = await db.checkHuntRecords(req.body);
+    console.log(result);
     if (result === null || result === undefined) {
       // Get hunt details
       const huntDetails = await db.getHuntById(req.body.hunt_id);

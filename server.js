@@ -4,11 +4,15 @@ const cors = require("cors");
 
 const app = express();
 
+const path = require("path");
+
 const dotenv = require("dotenv");
 
 const authRoute = require("./routes/AuthRoute");
 
 const huntRoute = require("./routes/huntRoute");
+
+const recordsRoute = require("./routes/recordsRoute");
 
 dotenv.config();
 
@@ -48,8 +52,14 @@ app.use("/auth", authRoute);
 
 app.use("/hunts", huntRoute);
 
+app.use("/records", recordsRoute);
+
 app.get("/", (req, res) => {
   res.send("Server is running");
+});
+
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname + "/privacy.html"));
 });
 
 app.listen(4000, () => {
