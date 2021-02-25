@@ -80,6 +80,7 @@ router.get("/all", async (req, res) => {
       hunts.map(async (hunt) => {
         arr.push({
           hunt: hunt,
+          posts: await db.getHuntsPost(hunt.hunt_id),
           owner: await db.getUserDetails(hunt.createdBy),
         });
       })
