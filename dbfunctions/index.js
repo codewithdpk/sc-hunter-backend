@@ -200,9 +200,9 @@ perform.getHuntsPost = (hunt_id) => {
 perform.getUserDetails = (id) => {
   return new Promise((resolve, reject) => {
     usersModal
-      .findOne({ user_id: { $eq: id } })
+      .find({ user_id: { $eq: id } }, ["user_id", "name", "email", "image_url"])
       .then((data) => {
-        return resolve(data);
+        return resolve(data[0]);
       })
       .catch((err) => {
         return reject(err);
@@ -304,6 +304,19 @@ perform.createHuntsRecord = (details, huntDetails, userDetails) => {
 
     record
       .save()
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+perform.getAllHuntsAndUsers = () => {
+  return new Promise((resolve, reject) => {
+    huntModal
+      .find()
       .then((data) => {
         return resolve(data);
       })

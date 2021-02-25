@@ -68,6 +68,26 @@ router.post("/get-all", async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  // Get all hunts and users
+  const hunts = await db.getAllHuntsAndUsers();
+
+  console.log(hunts);
+
+  if (hunts !== undefined) {
+    let arr = [];
+    await Promise.all(
+      hunts.map(async (hunt) => {
+        arr.push({
+          hunt: hunt,
+          owner: await db.getUserDetails(hunt.createdBy),
+        });
+      })
+    );
+    res.json({ status: "OK", hunts: arr });
+  }
+});
+
 router.post("/get-users-all", async (req, res) => {
   let hunts = [];
   if (req.body.id === undefined) {
