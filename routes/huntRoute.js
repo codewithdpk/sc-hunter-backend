@@ -119,11 +119,14 @@ router.post("/filters", async (req, res) => {
     res.json({ status: "failed", message: "Parameter missing" });
   } else {
     const getHunts = await db.getHuntsByKey(req.body.key);
-
     await Promise.all(
       getHunts.map(async (hunt) => {
         var posts = await db.getHuntsPost(hunt.hunt_id);
-        hunts.push({ hunt: hunt, posts: posts });
+        hunts.push({
+          hunt: hunt,
+          posts: posts,
+          owner: await db.getUserDetails(hunt.createdBy),
+        });
       })
     );
 
@@ -192,6 +195,27 @@ router.post("/endingpoint", async (req, res) => {
           "Something went wrong. Not able to update ending point. Please try after some time.",
       });
     }
+  }
+});
+
+router.post("/post_details", async (req, res) => {
+  if (req.body.post_id) {
+    // Get Post's details
+    const postDetails = await db.getPostsDetails(
+      req.body.post_id,
+      req.body.hunt_id
+    );
+
+    // Hunt details
+    const huntDetails = await db.getHuntById(req.body.hunt_id);
+
+    if (postDetails === null || huntDetails === null) {
+      res.json({ status: "failed", message: "Hunt or post not found" });
+    } else {
+      res.json({ status: "OK", hunt: huntDetails, post: postDetails });
+    }
+  } else {
+    res.json({ status: "failed", message: "Parameters missing" });
   }
 });
 

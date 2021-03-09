@@ -63,6 +63,7 @@ modals.posts = (mongoose) => {
     long: Number,
     lat: Number,
     post_image: String,
+    voice_url: String,
     hunt_id: String,
     hunt_name: String,
     createdBy: String,

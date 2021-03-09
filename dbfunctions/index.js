@@ -1,3 +1,4 @@
+const { reject } = require("lodash");
 const { uuid } = require("uuidv4");
 const modals = require("../modals");
 
@@ -160,6 +161,7 @@ perform.createAPost = (details) => {
       long: details.long,
       lat: details.lat,
       post_image: details.post_image,
+      voice_url: details.voice_url,
       hunt_id: details.hunt_id,
       hunt_name: details.hunt_name,
       createdBy: details.createdBy,
@@ -317,6 +319,21 @@ perform.getAllHuntsAndUsers = () => {
   return new Promise((resolve, reject) => {
     huntModal
       .find()
+      .then((data) => {
+        return resolve(data);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
+  });
+};
+
+perform.getPostsDetails = (post_id, hunt_id) => {
+  return new Promise((resolve, reject) => {
+    postsModal
+      .findOne({
+        $and: [{ post_id: { $eq: post_id } }, { hunt_id: { $eq: hunt_id } }],
+      })
       .then((data) => {
         return resolve(data);
       })
